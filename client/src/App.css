@@ -19,3 +19,15 @@ header{
 .title{
     @apply text-4xl md:text-5xl font-bold my-2 md:leading-snug leading-snug;
 }
+
+.mask-heart {
+    border-radius: 15px;
+    rotate: 270deg;
+}
+
+.active{
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    font-size: large;
+    color: #F6723D;
+}

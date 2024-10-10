@@ -8,6 +8,8 @@ export default {
         red: "#FF6868",
         secondary: "#555",
         primaryBG: "#FCFCFC",
+        blue: "#1E7CF2",
+        youtube: "#FF0000",
       },
 
       fontFamily: {
