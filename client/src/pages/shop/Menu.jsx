@@ -7,6 +7,9 @@ const Menu = () => {
     const [selectedCategory, setSelectedCategory] = useState("all")
     const [sortOption, setSortOption] = useState("default");
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemPerPage] = useState(8);
+
     // loading data
 
     useEffect(() => {
@@ -38,13 +41,15 @@ const Menu = () => {
 
         setFilteredItems(filtered);
         setSelectedCategory(category);
+        setCurrentPage(1);
     }; 
 
     // show all data
 
     const showAll = () => {
         setFilteredItems(menu);
-        setSelectedCategory("all")
+        setSelectedCategory("all");
+        setCurrentPage(1);
     }
 
     // sorting based on A-Z, Z-A, Low-High pricing
@@ -73,7 +78,15 @@ const Menu = () => {
         }
 
         setFilteredItems(sortedItems);
+        setCurrentPage(1);
     }
+
+    // pagination logic
+
+    const indexOfLastItem = currentPage * itemPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemPerPage;
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
       <div>
@@ -170,11 +183,26 @@ const Menu = () => {
 
           {/* products card */}
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-            {filteredItems.map((item) => (
+            {currentItems.map((item) => (
               <Cards key={item._id} item={item} />
             ))}
           </div>
         </div>
+
+            {/* Pagination Section */}
+
+            <div className='flex justify-center my-8'>
+                {
+                    Array.from({ length: Math.ceil(filteredItems.length / itemPerPage) }).map((_, index) => (
+                <button
+                            key={index + 1} onClick={() => paginate(index + 1)}
+                        className={`mx-1 px-3 py-1 rounded-full ${currentPage === index + 1? "bg-orange text-white" : "bg-gray-200"}`}>
+                    {index + 1}
+
+                </button>
+                    ))
+                }
+            </div>
       </div>
     );
 }
