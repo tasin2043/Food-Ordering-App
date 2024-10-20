@@ -7,12 +7,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCzj-kxWNbcoCXpQoPkYMBlHxfjVX1OdhQ",
-  authDomain: "foodmood-client-d906d.firebaseapp.com",
-  projectId: "foodmood-client-d906d",
-  storageBucket: "foodmood-client-d906d.appspot.com",
-  messagingSenderId: "587568478307",
-  appId: "import.meta.env.VITE_APPID",
+  apiKey:  import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
 };
 
 // Initialize Firebase

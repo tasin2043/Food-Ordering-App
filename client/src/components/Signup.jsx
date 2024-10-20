@@ -1,18 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import Modal from './Modal';
+import { AuthContext } from '../contexts/AuthProvider';
 
 
 const Signup = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const { createUser, login } = useContext(AuthContext);
 
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log(data);
+  // navigate to homepage or spacifing page
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
+  const onSubmit = (data) => {
+    const email = data.email;
+    const password = data.password;
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        alert("Account creation Successful!");
+        document.getElementById("my_modal_5").close();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
 
   return (
     <div className="max-w-md bg-white shadow mx-auto flex items-center justify-center p-4 my-10 rounded-3xl">
@@ -66,8 +91,8 @@ const Signup = () => {
             <Modal />
           </p>
 
-                  <Link
-                      to="/"
+          <Link
+            to="/"
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
           >
             ✕

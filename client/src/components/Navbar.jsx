@@ -3,6 +3,7 @@ import logo from "/foodmood-logo.png";
 import { FaUser } from "react-icons/fa";
 import Modal from './Modal';
 import { AuthContext } from '../contexts/AuthProvider';
+import Profile from './Profile';
 
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
@@ -74,11 +75,11 @@ const Navbar = () => {
   );
 
   return (
-    <header className="max-w-screen=2x1 mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
+    <header className="container max-w-screen=2x1 mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
       <div
         className={`navbar xl-px-24 ${
           isSticky
-            ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out "
+            ? "rounded-full shadow-md bg-base-100 transition-all duration-300 ease-in-out"
             : ""
         }`}
       >
@@ -159,13 +160,17 @@ const Navbar = () => {
           </div>
 
           {/* Contact Button */}
-          <button
-            onClick={() => document.getElementById("my_modal_5").showModal()}
-            className="btn bg-orange rounded-full px-6 text-white flex item-center gap-2"
-          >
-            {" "}
-            <FaUser /> Login
-          </button>
+          {user ? (
+            <Profile user={user} />
+          ) : (
+            <button
+              onClick={() => document.getElementById("my_modal_5").showModal()}
+              className="btn bg-orange rounded-full px-6 text-white flex item-center gap-2"
+            >
+              {" "}
+              <FaUser /> Login
+            </button>
+          )}
 
           <Modal />
         </div>
